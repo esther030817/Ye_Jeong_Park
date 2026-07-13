@@ -1,64 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ye Jeong Park</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f0f14;
-      color: #f4f4f5;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 2rem;
-      max-width: 600px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #a78bfa, #60a5fa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero p {
-      margin-top: 1rem;
-      font-size: 1.1rem;
-      color: #a1a1aa;
-    }
-
-    .hero .badge {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.5rem 1.25rem;
-      border: 1px solid #3f3f46;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      color: #d4d4d8;
-    }
-  </style>
+  <title>태양광 발전량 예측 AI Agent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#0f0f14',
+            panel: '#17171f',
+            border: '#27272f',
+            accentFrom: '#a78bfa',
+            accentTo: '#60a5fa',
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body>
-  <main class="hero">
-    <h1>Ye Jeong Park</h1>
-    <p>English major | Building things, one project at a time.</p>
-    <span class="badge">Welcome to my page</span>
-  </main>
+<body class="min-h-screen bg-bg text-zinc-100 font-sans">
+  <div class="mx-auto max-w-md sm:max-w-2xl lg:max-w-4xl px-4 py-6 sm:py-10">
+
+    <!-- Header -->
+    <header class="mb-6 sm:mb-8">
+      <p class="text-sm text-zinc-500">2026년 7월 13일 (월)</p>
+      <h1 class="mt-1 text-2xl sm:text-3xl font-bold tracking-tight bg-gradient-to-r from-accentFrom to-accentTo bg-clip-text text-transparent">
+        태양광 발전량 예측 AI Agent
+      </h1>
+      <p class="mt-1 text-sm text-zinc-400">발전량 예측 · 이상 탐지 · 대응 브리핑</p>
+    </header>
+
+    <!-- KPI cards: 예측 vs 실제 -->
+    <section class="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
+      <div class="rounded-2xl border border-border bg-panel p-4">
+        <p class="text-xs text-zinc-500">내일 예상 발전량</p>
+        <p class="mt-1 text-2xl font-bold text-zinc-100">312 <span class="text-sm font-normal text-zinc-500">kWh</span></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-panel p-4">
+        <p class="text-xs text-zinc-500">오늘 실제 발전량</p>
+        <p class="mt-1 text-2xl font-bold text-zinc-100">248 <span class="text-sm font-normal text-zinc-500">kWh</span></p>
+      </div>
+    </section>
+
+    <!-- Residual / 오차 -->
+    <section class="rounded-2xl border border-border bg-panel p-4 mb-4">
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-zinc-400">예측 대비 오차 (Residual)</p>
+        <span class="rounded-full bg-red-500/10 px-2.5 py-0.5 text-xs font-medium text-red-400">임계값 초과</span>
+      </div>
+      <div class="mt-3 flex items-end gap-2">
+        <p class="text-3xl font-bold text-red-400">-21%</p>
+        <p class="pb-1 text-xs text-zinc-500">기준 임계값 ±10%</p>
+      </div>
+      <div class="mt-3 h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+        <div class="h-full w-[21%] bg-red-500"></div>
+      </div>
+    </section>
+
+    <!-- 7일 예측 vs 실제 차트 (mock bars) -->
+    <section class="rounded-2xl border border-border bg-panel p-4 mb-4">
+      <p class="text-sm text-zinc-400 mb-4">최근 7일 예측 vs 실제 발전량</p>
+      <div class="flex items-end justify-between gap-2 h-32">
+        <!-- day 1..7 mock data: [predicted, actual] as % height -->
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:70%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:65%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:80%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:78%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:60%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:58%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:90%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:85%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:75%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:40%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:85%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:45%"></div>
+        </div>
+        <div class="flex-1 flex items-end gap-0.5 h-full">
+          <div class="flex-1 rounded-t bg-blue-400/50" style="height:88%"></div>
+          <div class="flex-1 rounded-t bg-purple-400" style="height:42%"></div>
+        </div>
+      </div>
+      <div class="mt-3 flex items-center gap-4 text-xs text-zinc-500">
+        <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-sm bg-blue-400/50"></span>예측</span>
+        <span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-sm bg-purple-400"></span>실제</span>
+      </div>
+    </section>
+
+    <!-- 진단 결과: 날씨 요인 vs 설비 이상 -->
+    <section class="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 mb-4">
+      <div class="flex items-start gap-3">
+        <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-500/15 text-amber-400">⚠</span>
+        <div>
+          <p class="text-sm font-semibold text-amber-400">설비 이상 가능성</p>
+          <p class="mt-1 text-sm text-zinc-300 leading-relaxed">
+            정상적인 기상 조건에서도 최근 3일간 발전량 감소가 지속되고 있습니다. 설비 점검을 권장합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 추천 액션 -->
+    <section class="rounded-2xl border border-border bg-panel p-4 mb-4">
+      <p class="text-sm text-zinc-400 mb-3">권장 조치</p>
+      <button id="requestBtn" class="w-full rounded-xl bg-gradient-to-r from-accentFrom to-accentTo py-3 text-sm font-semibold text-zinc-950 active:opacity-90 transition disabled:opacity-60">
+        설비 점검 요청하기
+      </button>
+      <button id="laterBtn" class="w-full mt-2 rounded-xl border border-border py-3 text-sm font-medium text-zinc-300 active:bg-zinc-800 transition">
+        점검 일정 나중에 잡기
+      </button>
+    </section>
+
+    <footer class="text-center text-xs text-zinc-600 mt-8">
+      모델: 발전량 예측 v1 · 마지막 업데이트 방금 전
+    </footer>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed left-1/2 bottom-6 -translate-x-1/2 translate-y-24 opacity-0 transition-all duration-300 rounded-xl bg-zinc-100 text-zinc-900 text-sm font-medium px-4 py-2.5 shadow-lg pointer-events-none">
+    알림 준비 중
+  </div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2200);
+    }
+
+    const requestBtn = document.getElementById('requestBtn');
+    requestBtn.addEventListener('click', () => {
+      requestBtn.disabled = true;
+      requestBtn.textContent = '점검 요청 완료 ✓';
+      requestBtn.classList.remove('bg-gradient-to-r', 'from-accentFrom', 'to-accentTo');
+      requestBtn.classList.add('bg-zinc-800', 'text-zinc-400');
+      showToast('설비 점검 요청이 접수되었습니다');
+    });
+
+    document.getElementById('laterBtn').addEventListener('click', () => {
+      showToast('내일 다시 알려드릴게요');
+    });
+  </script>
 </body>
 </html>
